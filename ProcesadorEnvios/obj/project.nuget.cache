@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "mcrQaQ6JmoZG/wbWk0lCQMSBYo8u7d6CA30dcMTGxbgOx9/T2zBcfnduFt03p4O/QbWYa9BTBE+VxzHU1snFSg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\joaqu\\Desktop\\IAEW 2021\\IAEW_TP_2021\\ProcesadorEnvios\\ProcesadorEnvios.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\joaqu\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\joaqu\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\joaqu\\.nuget\\packages\\swashbuckle.aspnetcore\\5.6.3\\swashbuckle.aspnetcore.5.6.3.nupkg.sha512",
+    "C:\\Users\\joaqu\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\5.6.3\\swashbuckle.aspnetcore.swagger.5.6.3.nupkg.sha512",
+    "C:\\Users\\joaqu\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\5.6.3\\swashbuckle.aspnetcore.swaggergen.5.6.3.nupkg.sha512",
+    "C:\\Users\\joaqu\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\5.6.3\\swashbuckle.aspnetcore.swaggerui.5.6.3.nupkg.sha512"
+  ],
+  "logs": []
+}
