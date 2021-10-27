@@ -1,6 +1,6 @@
 using System;
 
-namespace ProcesadorEnvios
+namespace ProcesadorEnviosAPI
 {
     public class WeatherForecast
     {

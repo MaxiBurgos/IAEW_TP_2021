@@ -1,0 +1,171 @@
+---
+openapi: 3.0.1
+info:
+  title: ProcesadorEnviosAPI
+  version: v1
+paths:
+  "/api/Envios/{envioId}":
+    get:
+      tags:
+      - Envios
+      parameters:
+      - name: envioId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Success
+  "/api/Envios":
+    post:
+      tags:
+      - Envios
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/Envio"
+          text/json:
+            schema:
+              "$ref": "#/components/schemas/Envio"
+          application/*+json:
+            schema:
+              "$ref": "#/components/schemas/Envio"
+      responses:
+        '200':
+          description: Success
+  "/api/Envios/{envioId}/novedades":
+    post:
+      tags:
+      - Envios
+      parameters:
+      - name: envioId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: novedades
+        in: query
+        schema:
+          type: string
+          nullable: true
+      responses:
+        '200':
+          description: Success
+  "/api/OperadoresLogisticos":
+    get:
+      tags:
+      - OperadoresLogisticos
+      responses:
+        '200':
+          description: Success
+    post:
+      tags:
+      - OperadoresLogisticos
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/OperadorLogistico"
+          text/json:
+            schema:
+              "$ref": "#/components/schemas/OperadorLogistico"
+          application/*+json:
+            schema:
+              "$ref": "#/components/schemas/OperadorLogistico"
+      responses:
+        '200':
+          description: Success
+  "/api/OperadoresLogisticos/{operadorLogisticoId}":
+    get:
+      tags:
+      - OperadoresLogisticos
+      parameters:
+      - name: operadorLogisticoId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Success
+    put:
+      tags:
+      - OperadoresLogisticos
+      parameters:
+      - name: operadorLogisticoId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/OperadorLogistico"
+          text/json:
+            schema:
+              "$ref": "#/components/schemas/OperadorLogistico"
+          application/*+json:
+            schema:
+              "$ref": "#/components/schemas/OperadorLogistico"
+      responses:
+        '200':
+          description: Success
+    delete:
+      tags:
+      - OperadoresLogisticos
+      parameters:
+      - name: operadorLogisticoId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Success
+components:
+  schemas:
+    OperadorLogistico:
+      type: object
+      properties:
+        nombre:
+          type: string
+          nullable: true
+        ciudad:
+          type: string
+          nullable: true
+        provincia:
+          type: string
+          nullable: true
+      additionalProperties: false
+    Envio:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        direccion_Origen:
+          type: string
+          nullable: true
+        direccion_Destino:
+          type: string
+          nullable: true
+        contactoComprador:
+          type: string
+          nullable: true
+        estado_Envio:
+          type: string
+          nullable: true
+        detalle_Producto:
+          type: string
+          nullable: true
+        operadorLogistico:
+          "$ref": "#/components/schemas/OperadorLogistico"
+      additionalProperties: false

@@ -12,7 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
-namespace ProcesadorEnvios
+namespace ProcesadorEnviosAPI
 {
     public class Startup
     {
@@ -30,7 +30,7 @@ namespace ProcesadorEnvios
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProcesadorEnvios", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProcesadorEnviosAPI", Version = "v1" });
             });
         }
 
@@ -41,7 +41,7 @@ namespace ProcesadorEnvios
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ProcesadorEnvios v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ProcesadorEnviosAPI v1"));
             }
 
             app.UseHttpsRedirection();

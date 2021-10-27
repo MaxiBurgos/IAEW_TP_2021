@@ -1,14 +1,16 @@
 using System;
 
-namespace ProcesadorEnvios
+namespace ProcesadorEnviosAPI.Models
 {
-    public class Envios
+    public class Envio
     {
+        public long Id { get; set; }
+
         public string Direccion_Origen { get; set; }
 
         public string Direccion_Destino { get; set; }
 
-        public Comprador Comprador { get; set; }
+        public string ContactoComprador { get; set; }
 
         public string Estado_Envio { get; set; }
 

@@ -1,6 +1,6 @@
 using System;
 
-namespace ProcesadorEnvios
+namespace ProcesadorEnviosAPI.Models
 {
     public class OperadorLogistico
     {
