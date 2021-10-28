@@ -12,6 +12,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
+using Microsoft.EntityFrameworkCore;
+using ProcesadorEnviosAPI.Models;
+
 namespace ProcesadorEnviosAPI
 {
     public class Startup
@@ -26,6 +29,13 @@ namespace ProcesadorEnviosAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContextPool<MariaDbContext>(
+                options => 
+                    options.UseMySql(Configuration.GetConnectionString("MariaDbConnectionString"),
+                mySqlOptions => 
+                    mySqlOptions.ServerVersion(new Version(10, 5, 4), ServerType.MariaDb)
+                )
+            );
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
