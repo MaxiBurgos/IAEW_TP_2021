@@ -13,7 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Pomelo.EntityFrameworkCore.MySql;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
-using Microsoft.AspNetCore.MariaDB.Persistence;
+//using Microsoft.AspNetCore.MariaDB.Persistence;
 
 using Microsoft.EntityFrameworkCore;
 using ProcesadorEnviosAPI.Models;
@@ -32,6 +32,7 @@ namespace ProcesadorEnviosAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            /*
             services.AddDbContextPool<MariaDbContext>(
                 options => 
                     options.UseMySql(Configuration.GetConnectionString("MariaDbConnectionString"),
@@ -39,6 +40,9 @@ namespace ProcesadorEnviosAPI
                     mySqlOptions.ServerVersion(new Version(10, 5, 4), ServerType.MariaDb)
                 )
             );
+            */
+            services.AddDbContext<ApiContext>(opt => // Agregar
+                                               opt.UseInMemoryDatabase("TodoList"));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

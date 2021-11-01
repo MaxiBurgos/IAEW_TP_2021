@@ -14,9 +14,9 @@ namespace ProcesadorEnviosAPI.Controllers
     [ApiController]
     public class OperadoresLogisticosController : ControllerBase
     {
-        private readonly MariaDbContext _context;
+        private readonly ApiContext _context;
 
-        public OperadoresLogisticosController(MariaDbContext context)
+        public OperadoresLogisticosController(ApiContext context)
         {
             _context = context;
         }
@@ -35,9 +35,13 @@ namespace ProcesadorEnviosAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] OperadorLogistico operadorLogistico)
+        public async Task<ActionResult<OperadorLogistico>> Create([FromBody] OperadorLogistico operadorLogistico)
         {
-            return Ok();
+            _context.operadoresLogisticos.Add(operadorLogistico);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetAll), new { id=operadorLogistico.Id }, operadorLogistico);
+            //return Ok();
         }
 
         [Route("{operadorLogisticoId}")]

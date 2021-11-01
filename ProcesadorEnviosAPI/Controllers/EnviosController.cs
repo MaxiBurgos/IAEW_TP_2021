@@ -1,5 +1,12 @@
-using ProcesadorEnviosAPI.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
+using ProcesadorEnviosAPI.Models;
 
 namespace ProcesadorEnviosAPI.Controllers
 {
@@ -7,6 +14,19 @@ namespace ProcesadorEnviosAPI.Controllers
     [ApiController]
     public class EnviosController : ControllerBase
     {
+        private readonly ApiContext _context;
+
+        public EnviosController(ApiContext context)
+        {
+            _context = context;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Envio>>> GetAll()
+        {
+            return await _context.envios.ToListAsync();
+        }
+
         [Route("{envioId}")]
         [HttpGet]
         public IActionResult GetById(long envioId)
@@ -15,9 +35,12 @@ namespace ProcesadorEnviosAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] Envio envio)
+        public async Task<ActionResult<Envio>> Create([FromBody] Envio envio)
         {
-            return Ok();
+            _context.envios.Add(envio);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetAll), new { id=envio.Id }, envio);
         }
 
         [Route("{envioId}/novedades")]
