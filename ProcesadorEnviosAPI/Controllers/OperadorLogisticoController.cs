@@ -29,9 +29,16 @@ namespace ProcesadorEnviosAPI.Controllers
 
         [Route("{operadorLogisticoId}")]
         [HttpGet]
-        public IActionResult GetById(long operadorLogisticoId)
+        public async Task<ActionResult<OperadorLogistico>> GetById(int operadorLogisticoId)
         {
-            return Ok();
+            var operLogistico = await _context.operadoresLogisticos.FindAsync(operadorLogisticoId);
+
+            if (operLogistico == null)
+            {
+                return NotFound();
+            }
+
+            return operLogistico;
         }
 
         [HttpPost]
@@ -41,21 +48,22 @@ namespace ProcesadorEnviosAPI.Controllers
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetAll), new { id=operadorLogistico.Id }, operadorLogistico);
-            //return Ok();
-        }
-
-        [Route("{operadorLogisticoId}")]
-        [HttpPut]
-        public IActionResult Modify(long operadorLogisticoId, [FromBody] OperadorLogistico operadorLogistico)
-        {
-            return Ok();
         }
 
         [Route("{operadorLogisticoId}")]
         [HttpDelete]
-        public IActionResult Delete(long operadorLogisticoId)
+        public async Task<IActionResult> Delete(int operadorLogisticoId)
         {
-            return Ok();
+            var operLogistico = await _context.operadoresLogisticos.FindAsync(operadorLogisticoId);
+            if (operLogistico == null)
+            {
+                return NotFound();
+            }
+            
+            _context.operadoresLogisticos.Remove(operLogistico);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
         }
     }
 }
