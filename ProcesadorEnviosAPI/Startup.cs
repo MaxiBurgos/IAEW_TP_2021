@@ -12,8 +12,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Pomelo.EntityFrameworkCore.MySql;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure.Internal;
 
 using Microsoft.EntityFrameworkCore;
 using ProcesadorEnviosAPI.Models;
@@ -36,8 +34,8 @@ namespace ProcesadorEnviosAPI
             services.AddDbContext<ApiContext>(
                 options => 
                     options.UseMySql(Configuration.GetConnectionString("BDConnectionString"),
-                mySqlOptions => 
-                    mySqlOptions.ServerVersion(new Version(8, 0, 23), ServerType.MySql))
+                    ServerVersion.AutoDetect(Configuration.GetConnectionString("BDConnectionString"))
+                )
             );
             
             /*
