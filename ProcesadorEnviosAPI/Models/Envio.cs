@@ -4,7 +4,7 @@ namespace ProcesadorEnviosAPI.Models
 {
     public class Envio
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public string Direccion_Origen { get; set; }
 
