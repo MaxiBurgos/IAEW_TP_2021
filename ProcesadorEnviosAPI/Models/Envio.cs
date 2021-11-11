@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProcesadorEnviosAPI.Models
 {
@@ -10,12 +11,13 @@ namespace ProcesadorEnviosAPI.Models
 
         public string Direccion_Destino { get; set; }
 
-        public string ContactoComprador { get; set; }
+        public string Contacto_Comprador { get; set; }
 
-        public string Estado_Envio { get; set; }
+        public Estado Estado { get; set; }
+        
 
         public string Detalle_Producto { get; set; }
         
-        public OperadorLogistico OperadorLogistico { get; set; }
+        public int Id_Operador_Logistico { get; set; }
     }
 }

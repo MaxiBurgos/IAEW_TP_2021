@@ -39,6 +39,7 @@ namespace ProcesadorEnviosAPI.Controllers
         {
             _context.envios.Add(envio);
             await _context.SaveChangesAsync();
+            //envio = await _context.envios.Include(x => x.Id_estado).FindAsync(envio.id_estado);
 
             return CreatedAtAction(nameof(GetAll), new { id=envio.Id }, envio);
         }
