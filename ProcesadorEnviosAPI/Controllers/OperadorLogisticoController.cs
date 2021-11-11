@@ -31,6 +31,8 @@ namespace ProcesadorEnviosAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<OperadorLogistico>> GetById(int operadorLogisticoId)
         {
+            return Ok();
+            /*
             var operLogistico = await _context.operadoresLogisticos.FindAsync(operadorLogisticoId);
 
             if (operLogistico == null)
@@ -39,6 +41,7 @@ namespace ProcesadorEnviosAPI.Controllers
             }
 
             return operLogistico;
+            */
         }
 
         [HttpPost]

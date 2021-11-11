@@ -37,11 +37,14 @@ namespace ProcesadorEnviosAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Envio>> Create([FromBody] Envio envio)
         {
+            /*
             _context.envios.Add(envio);
             await _context.SaveChangesAsync();
             //envio = await _context.envios.Include(x => x.Id_estado).FindAsync(envio.id_estado);
 
             return CreatedAtAction(nameof(GetAll), new { id=envio.Id }, envio);
+            */
+            return Ok();
         }
 
         [Route("{envioId}/novedades")]
