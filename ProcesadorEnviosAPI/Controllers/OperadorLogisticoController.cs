@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.AspNetCore.Authorization;
 using ProcesadorEnviosAPI.Models;
 
 namespace ProcesadorEnviosAPI.Controllers
@@ -29,6 +29,7 @@ namespace ProcesadorEnviosAPI.Controllers
 
         [Route("{operadorLogisticoId}")]
         [HttpGet]
+        [Authorize(Policy = "read:operadores")]
         public async Task<ActionResult<OperadorLogistico>> GetById(int operadorLogisticoId)
         {
             var operLogistico = await _context.operadoresLogisticos.FindAsync(operadorLogisticoId);
@@ -42,6 +43,7 @@ namespace ProcesadorEnviosAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "write:operadores")]
         public async Task<ActionResult<OperadorLogistico>> Create([FromBody] OperadorLogistico operadorLogistico)
         {
             _context.operadoresLogisticos.Add(operadorLogistico);
@@ -52,6 +54,7 @@ namespace ProcesadorEnviosAPI.Controllers
 
         [Route("{operadorLogisticoId}")]
         [HttpDelete]
+        [Authorize(Policy = "delete:operadores")]
         public async Task<IActionResult> Delete(int operadorLogisticoId)
         {
             var operLogistico = await _context.operadoresLogisticos.FindAsync(operadorLogisticoId);

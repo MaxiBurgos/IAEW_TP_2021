@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.AspNetCore.Authorization;
 using ProcesadorEnviosAPI.Models;
 
 namespace ProcesadorEnviosAPI.Controllers
@@ -29,12 +29,21 @@ namespace ProcesadorEnviosAPI.Controllers
 
         [Route("{envioId}")]
         [HttpGet]
-        public IActionResult GetById(long envioId)
+        [Authorize(Policy = "read:envios")]
+        public async Task<ActionResult<Envio>> GetById (long envioId)
         {
-            return Ok();
+            var envio = await _context.envios.FindAsync(envioId);
+
+            if (envio == null)
+            {
+                return NotFound();
+            }
+            return envio;
         }
 
+        [Route("{envioId}")]
         [HttpPost]
+        [Authorize(Policy = "write:envios")]
         public async Task<ActionResult<Envio>> Create([FromBody] Envio envio)
         {
             _context.envios.Add(envio);
@@ -45,6 +54,7 @@ namespace ProcesadorEnviosAPI.Controllers
 
         [Route("{envioId}/novedades")]
         [HttpPost]
+        [Authorize(Policy = "write:novedades")]
         public IActionResult Create(long envioId, string novedades)
         {
             return Ok();
