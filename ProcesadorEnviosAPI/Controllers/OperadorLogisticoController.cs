@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using ProcesadorEnviosAPI.Models;
-
+using RestSharp;
+using Newtonsoft.Json.Linq;
+using System.Text.Json;
 namespace ProcesadorEnviosAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -22,6 +24,7 @@ namespace ProcesadorEnviosAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = "read:operadores")]
         public async Task<ActionResult<IEnumerable<OperadorLogistico>>> GetAll()
         {
             return await _context.operadoresLogisticos.ToListAsync();
@@ -67,6 +70,20 @@ namespace ProcesadorEnviosAPI.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        [Route("token")]
+        [HttpGet]
+        public Task<String> getToken() {
+            var client = new RestClient("https://dev-proc-envios.us.auth0.com/oauth/token");
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("content-type", "application/json");
+            request.AddParameter("application/json", "{\"client_id\":\"yozlagVQhQS4lZ1twST1HCPzkQPrsshA\",\"client_secret\":\"0wlg5MqeRZWtzfjihSYKpUwqfzyF2ucdc62GjBkTFDYEE2Quozp1rKrNEqHztdLt\",\"audience\":\"https://www.api-procesador-envios.com/\",\"grant_type\":\"client_credentials\"}", ParameterType.RequestBody);
+            IRestResponse response = client.Execute(request);
+            dynamic resp = JObject.Parse(response.Content);
+            string token = resp.access_token;
+            var output = JsonSerializer.Serialize(new {token = token});
+            return Task.FromResult(output);
         }
     }
 }
