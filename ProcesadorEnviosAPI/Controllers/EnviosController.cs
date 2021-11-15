@@ -45,11 +45,11 @@ namespace ProcesadorEnviosAPI.Controllers
             return envio;
         }
 
+        //CREAR_ENVIO
         [HttpPost]
         [Authorize(Policy = "write:envios")]
         public async Task<ActionResult<Envio>> Create([FromBody] Envio envio)
         {
-
             var provincias = await _context.Provincias.ToListAsync();
             //busco entre las provincias el operador asignado a la provincia de la direccion destino y se lo asigno al envio
             foreach (var item in provincias)
@@ -122,17 +122,20 @@ namespace ProcesadorEnviosAPI.Controllers
             return CreatedAtAction(nameof(GetAll), new { id = envio.Id }, envio);
         }
 
+        //NOTIFICAR_CAMBIOS_ESTADO
         [Route("{envioId}/novedades")]
         [HttpPost]
         [Authorize(Policy = "write:novedades")]
         public async Task<ActionResult<Novedades>> CreateNews([FromBody] Novedades novedades)
         {
-
+            // busco el envio al que corresponde la novedad y actualizo su estado
             var recordToModidy = _context.envios.Where(r => r.Id == novedades.IdEnvio).First();
             recordToModidy.EstadoEnvio = novedades.NuevoEstado;
             _context.novedades.Add(novedades);
-            await _context.SaveChangesAsync();
-            var client = new RestClient("https://webhook.site/5181130f-4172-4b7a-beb3-5f6d044b84c4");
+            await _context.SaveChangesAsync();            
+            //esta url corresponde a el cliente "compraloSiPuedes"
+            string clientCompraloSiPodes = "https://webhook.site/5181130f-4172-4b7a-beb3-5f6d044b84c4" ;
+            var client = new RestClient(clientCompraloSiPodes);
             var request = new RestRequest(Method.POST).AddJsonBody(novedades);
             client.Execute(request);
 
