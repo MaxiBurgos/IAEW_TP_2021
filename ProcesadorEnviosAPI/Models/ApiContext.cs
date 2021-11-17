@@ -15,6 +15,8 @@ namespace ProcesadorEnviosAPI.Models
 
         public virtual DbSet<OperadorLogistico> operadoresLogisticos { get; set; }
         public virtual DbSet<Envio> envios { get; set; }
-        public virtual DbSet<Estado> estados { get; set; }
+        public virtual DbSet<Novedades> novedades { get; set; }
+        public virtual DbSet<Provincias> Provincias { get; set; }        
+
     }
 }
